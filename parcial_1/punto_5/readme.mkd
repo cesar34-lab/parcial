@@ -1,0 +1,57 @@
+# README.mkd
+
+## Compendio: Soluciones del Parcial 1 - Lenguajes de Programación
+
+Este documento centraliza los ejercicios desarrollados, implementando técnicas de análisis léxico, sintáctico y automatización de procesos mediante lenguajes formales.
+
+---
+
+## 1. Validación de Identificadores (AFD)
+Implementación de un autómata que reconoce la estructura `[A-Za-z][A-Za-z0-9]*`.
+
+
+
+### Tabla de Transiciones
+| Estado | Entrada | Siguiente |
+| :--- | :--- | :--- |
+| **q0** | Letra | q1 |
+| **q1** | Alfanumérico | q1 |
+| **q0/q1** | Otro | qE |
+
+---
+
+## 2. Calculadora de Raíces Cuadradas (Flex/Bison)
+Implementación mediante el método de Newton-Raphson:
+$$x_{n+1} = \frac{1}{2} \left( x_n + \frac{a}{x_n} \right)$$
+
+
+
+### Flujo de Compilación
+1. `bison -d calculadora.y`
+2. `flex calculadora.l`
+3. `gcc calculadora.tab.c lex.yy.c -o calculadora -lm`
+4. `./calculadora < entrada.txt`
+
+---
+
+## 3. Generador de Fibonacci (ANTLR4)
+Procesamiento de gramática `FIBO(NUMERO)` mediante el patrón **Visitor**.
+
+
+
+### Lógica de Ejecución
+* **Gramática:** `programa : instruccion EOF;`
+* **Cálculo:** Recurrencia definida por $F_n = F_{n-1} + F_{n-2}$.
+* **Entrada:** `FIBO(n)` procesado a través de `main.py`.
+
+---
+
+## Resumen de Tecnologías Aplicadas
+
+| Ejercicio | Herramienta | Objetivo |
+| :--- | :--- | :--- |
+| 2 | Python (AFD) | Validación sintáctica |
+| 3 | C, Flex, Bison | Análisis y cálculo numérico |
+| 5 | ANTLR4 | Análisis de gramáticas y recursión |
+
+---
