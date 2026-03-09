@@ -1,0 +1,39 @@
+
+## 1. Descripción Técnica
+El programa procesa una entrada basada en un archivo de texto y calcula la raíz cuadrada de forma iterativa, permitiendo una aproximación de alta precisión.
+
+### Método Newton-Raphson
+La función `raiz_cuadrada` implementa la fórmula recursiva:
+$$x_{n+1} = 0.5 \cdot (x_n + \frac{a}{x_n})$$
+
+
+---
+
+## 2. Estructura del Proyecto
+* **`calculadora.l`**: Definición léxica. Reconoce números reales, la palabra reservada `sqrt`, paréntesis y delimitadores.
+* **`calculadora.y`**: Definición sintáctica y lógica de cálculo. Define la gramática y el uso del método de Newton-Raphson.
+* **`entrada.txt`**: Archivo de entrada donde se especifican los valores para el cálculo.
+
+---
+
+## 3. Requisitos
+* Flex (Generador de analizadores léxicos)
+* Bison (Generador de analizadores sintácticos)
+* GCC (Compilador de C)
+
+---
+
+## 4. Instrucciones de Compilación y Ejecución
+
+Para generar el ejecutable y realizar las pruebas, ejecute los siguientes comandos en su terminal:
+
+```bash
+# Generar archivos fuente de C
+bison -d calculadora.y
+flex calculadora.l
+
+# Compilar
+gcc calculadora.tab.c lex.yy.c -o calculadora -lm
+
+# Ejecutar con el archivo de entrada
+./calculadora < entrada.txt

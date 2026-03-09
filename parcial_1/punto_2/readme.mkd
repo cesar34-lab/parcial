@@ -1,0 +1,56 @@
+# README.mkd
+
+## Parcial 1: Lenguajes de Programación - Punto 2
+**Ejercicio:** Implementación de un Autómata Finito Determinista (AFD) para la validación de identificadores (ID).
+
+---
+
+## 1. Definición del Lenguaje
+Se requiere validar cadenas de texto conforme a la expresión regular:
+$$ID = [A-Za-z][A-Za-z0-9]*$$
+
+Esta especificación establece que todo identificador válido debe comenzar obligatoriamente con una letra, seguida por una secuencia opcional de letras o dígitos.
+
+---
+
+## 2. Estructura del Autómata (AFD)
+El autómata transita entre un estado inicial de espera, un estado de aceptación (una vez leída la letra inicial) y un estado de error terminal.
+
+
+
+### Tabla de Transiciones
+| Estado Actual | Entrada | Estado Siguiente | Descripción |
+| :--- | :--- | :--- | :--- |
+| **q0** | LETRA | **q1** | Transición a estado de aceptación |
+| **q0** | DIGITO / OTRO | **qE** | Error: inicio no permitido |
+| **q1** | LETRA / DIGITO | **q1** | Permanece en aceptación |
+| **q1** | OTRO | **qE** | Error: carácter ilegal |
+
+---
+
+## 3. Implementación
+El código utiliza un diccionario para la tabla de transiciones, separando la lógica de clasificación de caracteres del motor de ejecución.
+
+* **Clasificador:** `clasificar(ch)` asigna la categoría `LETRA`, `DIGITO` u `OTRO`.
+* **Motor AFD:** `correr_afd(token)` evalúa el símbolo actual frente a la tabla y determina el estado resultante.
+
+---
+
+## 4. Pruebas de Validación
+Para cumplir con los requerimientos técnicos, se han ejecutado los siguientes casos de prueba:
+
+| Token | Resultado | Observación |
+| :--- | :--- | :--- |
+| `miVariable` | ACEPTA | Cumple la estructura: letra inicial seguida de alfanuméricos. |
+| `Var99` | ACEPTA | Cumple con la estructura alfanumérica permitida. |
+| `A` | ACEPTA | Identificador único válido. |
+| `1abc` | RECHAZA | El inicio con dígito invalida la cadena. |
+| `""` | RECHAZA | La cadena vacía no cumple la condición de inicio. |
+
+---
+
+## 5. Instrucciones de Ejecución
+Para validar el código, asegúrese de tener instalado Python 3.x y ejecute el script desde la línea de comandos:
+
+```bash
+python3 expre_regular.py

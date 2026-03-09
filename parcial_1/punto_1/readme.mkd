@@ -1,0 +1,47 @@
+# README.mkd
+
+## Parcial 1: Lenguajes de Programación
+**Ejercicio:** Definición de una expresión regular e implementación de un AFD para movimientos de ajedrez.
+
+---
+
+## 1. Definición del Lenguaje
+El objetivo es reconocer el conjunto de movimientos del ajedrez siguiendo patrones como `p->k4` o `kbp X qn`.
+
+### Expresión Regular
+La lógica del lenguaje se resume en:
+
+$$R = ([KQRBNkqrbn]|[a-hpP])[a-hpP]?[1-8]? (-> | [Xx]) [KQRBNkqrbn]?[a-hpP][1-8]$$
+
+* **Origen:** Pieza o columna inicial, seguida opcionalmente de columna y fila.
+* **Operador:** `->` o `X`.
+* **Destino:** Pieza opcional, columna y fila obligatoria.
+
+---
+
+## 2. Autómata Finito Determinista (AFD)
+La implementación utiliza estados para validar la secuencia. 
+
+### Tabla de Transiciones
+| Estado | Rol | Transición |
+| :--- | :--- | :--- |
+| **q0** | Inicio | Pieza o Columna |
+| **q1-q3** | Origen | Coordenadas |
+| **q4-q5** | Operador | `->` o `X` |
+| **q8** | **Aceptación** | Fila de destino |
+
+---
+
+## 3. Implementación en Python
+Componentes del código:
+1. **Clasificador:** `classify(ch)` etiqueta cada carácter.
+2. **Motor AFD:** `run_afd(token)` procesa la cadena.
+3. **Validador:** `validate_moves(moves)` prueba la lista de movimientos.
+
+---
+
+## 4. Instrucciones de Uso
+1. Guardar el código como `main.py`.
+2. Ejecutar:
+```bash
+python main.py
